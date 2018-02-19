@@ -1,0 +1,91 @@
+<html>
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: rgba(255, 145, 0, 0.973);
+                color: white;
+                text-align: center;
+            }
+            
+        </style>
+</head>
+<body style="background-color: rgba(147, 214, 245, 0.973);" >
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">SlackApp</a>
+            </div>
+            <ul class="nav navbar-nav">
+                 {% if user.is_authenticated %}
+                        <li class="active">
+                            <a href="{% url 'broadcast' %}">Broadcast</a>
+                           
+                        </li>
+                         {% endif %}
+                         {% if user.is_authenticated %}
+                        <li class="active">
+                            <a href="{% url 'create' %}">Create/Join room</a>
+                        
+                        </li>
+                         {% endif %}
+                        
+
+                        
+
+        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                        <li>{% if not user.is_authenticated %}
+                            <a href="/signin">
+                                <span class="glyphicon glyphicon-log-in"></span> Signin</a>
+                                {% endif %}
+                        </li>
+                        <li>
+                             {% if user.is_authenticated %}
+                            <a href="/signout">
+                                <span class="glyphicon glyphicon-log-out"></span> Signout</a>
+                            <!-- Admin panel-->
+                            {% endif %}
+                        </li>
+                        <li>
+                             {% if not user.is_authenticated %}
+                            <a href="/signup">
+                                <span class="glyphicon glyphicon-user"></span> Signup</a>
+                            <!-- Admin panel-->
+                            {% endif %}
+                        </li>
+            </ul>
+        </div>
+    </nav>
+
+
+</div>
+<center>
+    <br><br>
+    <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+
+
+                    {% endblock %}
+                </div>
+            </div>
+</center>
+</body>
+<footer >
+    <div class = "footer"> 
+ 
+    <center>
+        © &nbsp; Powered by Django &hearts;
+    </center>
+</div>
+</footer>
+
+</html>

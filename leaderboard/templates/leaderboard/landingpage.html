@@ -1,0 +1,39 @@
+{% extends 'leaderboard/index.html'  %}
+{% block content %}
+
+<center>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Create/Join</div>
+    <div class="panel-body">
+<form action="/create" method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="roomname" class=form-control>
+    <br>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-danger" name="create">Create Room
+        <span class="badge"></span>
+    </button>
+    <br>
+    <br>
+    <br> {{ sample }}
+
+    <button type="submit" class="btn btn-danger" formaction="/join" name="join">Join Room
+        <span class="badge"></span>
+    </button>
+</form>
+
+
+    </div>
+    <div class="panel-footer"></div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">Rooms with ID</div>
+    <div class="panel-body">Room id's </div>
+</div>
+</center>
+
+{% endblock %}

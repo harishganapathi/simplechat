@@ -1,0 +1,67 @@
+{% extends 'leaderboard/index.html' %} 
+{% block content %}
+<!--
+<script>
+    $(document).ready(function () {
+        $("#button").click(function () {
+            $("#response").load("{% url 'sendmessage' %}")
+        })
+    });
+</script>
+-->
+<script>
+    $(document).ready(function () {
+        $("#message_form").submit(function (event) {
+            $.ajax({
+                type: "POST",
+                url: '{% url 'sendmessage' %}',
+                data: $('#message_form').serialize(),
+                success: function (dataa) {
+                    console.log(dataa)
+                    var messages = ""
+                    for (message in dataa.messages) {
+                        console.log(message)
+                        messages += "<div class='alert alert-danger'>" +
+                            dataa.messages[message] + " </div>"
+                    }
+                    messages = messages + ""
+                    html_messages = messages
+                    console.log(html_messages)
+                    $('#response').html(html_messages);
+                },
+                dataType: 'json'
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+
+
+<div class="alert alert-info">
+    <strong> You have joined in this room</strong>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">ChatBot</div>
+    <div class="panel-body">
+        <div class="response" id="response">
+            messages go by this way {{ response_message }}
+        </div>
+
+    </div>
+    <div class="panel-footer">
+        <form method="POST" id="message_form" name="message_form">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="message_body">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" value="submit" name="send" id="button">
+                        <i class="glyphicon glyphicon-send"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
